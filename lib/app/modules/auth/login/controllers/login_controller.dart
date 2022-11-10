@@ -10,12 +10,13 @@ import 'package:http/http.dart' as http;
 class LoginController extends GetxController {
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
-  final count = 0.obs;
   RxBool isValid = false.obs;
   RxBool email = false.obs;
   RxBool password = false.obs;
   @override
   void onInit() {
+    print("init");
+
     super.onInit();
   }
 
@@ -64,23 +65,18 @@ class LoginController extends GetxController {
         headers: {"Content-Type": "application/json"}, body: body);
     if (response.statusCode == 200) {
       var resdata = json.decode(response.body);
-      var a = UserModel.fromJson(resdata['data']['data']);
+      var res = UserModel.fromJson(resdata['data']['data']);
 
-      return a;
+      return res;
     } else {
       return null;
     }
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void dispose() {
+    emailController.value.clear();
+    passwordController.value.clear();
+    super.dispose();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

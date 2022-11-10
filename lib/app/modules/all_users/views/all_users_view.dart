@@ -10,15 +10,40 @@ class AllUsersView extends GetView<AllUsersController> {
   Widget build(BuildContext context) {
     controller.onInit();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('All Users'),
-      ),
-      body: Center(
-        child: Text(
-          'AllUsersView is working',
-          style: TextStyle(fontSize: 20),
+        appBar: AppBar(
+          title: const Text('All Users'),
         ),
-      ),
-    );
+        body: Obx(
+          () => controller.isloading.value
+              ? const Center(child: CircularProgressIndicator())
+              : controller.allUsers.isEmpty
+                  ? const Center(
+                      child: Text(
+                      'No Users Found',
+                      style: TextStyle(fontSize: 20),
+                    ))
+                  : ListView.builder(
+                      itemCount: controller.allUsers.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var user = controller.allUsers[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(user.name ?? ''),
+                              subtitle: Text(user.email ?? ''),
+                              trailing: IconButton(
+                                  icon: const Icon(Icons.chat_bubble),
+                                  onPressed: controller.loading.value==false
+                                      ? () {
+                                          controller.chatUser(user.id!);
+                                        }
+                                      : null),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+        ));
   }
 }

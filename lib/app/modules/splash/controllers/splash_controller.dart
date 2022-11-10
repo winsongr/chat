@@ -5,7 +5,6 @@ import 'package:chat/app/utils/box.dart';
 import 'package:chat/app/utils/exports.dart';
 
 class SplashController extends GetxController {
-
   final count = 0.obs;
   @override
   void onInit() {
@@ -18,9 +17,9 @@ class SplashController extends GetxController {
 
     Timer(const Duration(seconds: 3), () async {
       if (await box.boxread() == null) {
-        Get.offAndToNamed(Routes.LOGIN);
+        Get.offAllNamed(Routes.LOGIN);
       } else {
-        Get.offAndToNamed(Routes.HOME);
+        Get.offAllNamed(Routes.HOME);
       }
     });
   }

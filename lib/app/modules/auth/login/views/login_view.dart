@@ -1,3 +1,4 @@
+import 'package:chat/app/routes/app_pages.dart';
 import 'package:chat/assets.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,10 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     controller.onInit();
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-            child: SingleChildScrollView(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: ScrollPhysics(),
           child: Obx(() => Column(
                 children: <Widget>[
                   Container(
@@ -57,19 +59,6 @@ class LoginView extends GetView<LoginController> {
                                     image: AssetImage(Assets.images.clockPNG))),
                           ),
                         ),
-                        Positioned(
-                          child: Container(
-                              margin: const EdgeInsets.only(top: 50),
-                              child: const Center(
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )),
-                        )
                       ],
                     ),
                   ),
@@ -106,7 +95,7 @@ class LoginView extends GetView<LoginController> {
                                         controller.emailController.value,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email or Phone number",
+                                        hintText: "Email",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
@@ -165,11 +154,23 @@ class LoginView extends GetView<LoginController> {
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                            child: Text("Tap to Register"),
+                            onTap: () {
+                              Get.offAndToNamed(Routes.REGISTER);
+                            },
                           )
                         ],
                       ))
                 ],
               )),
-        )));
+        ),
+      ),
+      // resizeToAvoidBottomInset: false,
+    );
   }
 }
