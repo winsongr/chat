@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:chat/app/data/api.dart';
 import 'package:chat/app/data/models/chat_room_model.dart';
+import 'package:chat/app/data/models/create_chat_room_model.dart';
 import 'package:chat/app/data/models/user_model.dart';
 import 'package:chat/app/routes/app_pages.dart';
 import 'package:chat/app/utils/box.dart';
@@ -19,15 +20,16 @@ class AllUsersController extends GetxController {
     isloading.value = true;
 
     loadUsers().then((users) {
-      allUsers.addAll(users);
+      allUsers.value = [];
 
+      allUsers.addAll(users);
       isloading.value = false;
     });
+
     super.onInit();
   }
 
   Future<List<UserModel>> loadUsers() async {
-    allUsers.value = [];
     var url = Uri.parse(ApiConst.alluser);
     http.Response response = await http.get(url);
     List<UserModel> alllUsers = [];
@@ -53,18 +55,21 @@ class AllUsersController extends GetxController {
     loading.value = true;
 
     var url = Uri.parse(ApiConst.createChat);
+    print(url);
     Map data = {"userId": "${box.boxread()}", "secondUserId": uid};
-    print(data);
     var body = json.encode(data);
+    print(body);
     var response = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var resdata = json.decode(response.body);
-      var res = ChatRoomModel.fromJson(resdata['data']['data']);
-      Get.offAndToNamed(Routes.CHAT, arguments: {
+      var res = CreateChatRoomModel.fromJson(resdata['data']['data']);
+      print(res.chatId);
+      Get.offAllNamed(Routes.CHAT, arguments: {
         'secondUserId': uid,
         "userId": box.boxread(),
-        "chatId": "${res.chatId}"
+      "chatId": "${res.chatId}"
       });
     }
     loading.value = false;

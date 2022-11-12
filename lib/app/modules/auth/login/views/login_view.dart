@@ -15,7 +15,7 @@ class LoginView extends GetView<LoginController> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: ScrollPhysics(),
+          physics: const ScrollPhysics(),
           child: Obx(() => Column(
                 children: <Widget>[
                   Container(
@@ -140,8 +140,8 @@ class LoginView extends GetView<LoginController> {
                                     colors: controller.email.value &&
                                             controller.password.value
                                         ? [
-                                            Color.fromRGBO(143, 148, 251, 1),
-                                            Color.fromRGBO(143, 148, 251, .6),
+                                            const Color.fromRGBO(143, 148, 251, 1),
+                                            const Color.fromRGBO(143, 148, 251, .6),
                                           ]
                                         : [Colors.grey, Colors.black38]),
                               ),
@@ -155,11 +155,11 @@ class LoginView extends GetView<LoginController> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           InkWell(
-                            child: Text("Tap to Register"),
+                            child: const Text("Tap to Register"),
                             onTap: () {
                               Get.offAndToNamed(Routes.REGISTER);
                             },

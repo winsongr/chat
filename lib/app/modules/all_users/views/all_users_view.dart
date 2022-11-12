@@ -26,6 +26,7 @@ class AllUsersView extends GetView<AllUsersController> {
                       itemCount: controller.allUsers.length,
                       itemBuilder: (BuildContext context, int index) {
                         var user = controller.allUsers[index];
+                        print(user.id);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
@@ -34,7 +35,7 @@ class AllUsersView extends GetView<AllUsersController> {
                               subtitle: Text(user.email ?? ''),
                               trailing: IconButton(
                                   icon: const Icon(Icons.chat_bubble),
-                                  onPressed: controller.loading.value==false
+                                  onPressed: controller.loading.value == false
                                       ? () {
                                           controller.chatUser(user.id!);
                                         }

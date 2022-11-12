@@ -1,12 +1,11 @@
 import 'dart:convert';
+import 'package:chat/app/data/models/user_model.dart';
 import 'package:chat/app/routes/app_pages.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:chat/app/data/api.dart';
-import 'package:chat/app/data/models/id_model.dart';
 import 'package:chat/app/utils/box.dart';
 import 'package:chat/app/utils/exports.dart';
-import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
   final nameController = TextEditingController().obs;
@@ -16,17 +15,13 @@ class RegisterController extends GetxController {
   RxBool email = false.obs;
   RxBool password = false.obs;
   RxBool name = false.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   register() async {
     loading.value = true;
     var signup = await signUp();
     if (signup != null) {
       Box box = Box();
-      box.boxWrite(signup.insertedId);
+      box.boxWrite(signup.id);
       print(box.boxread());
       Get.offAndToNamed(Routes.SPLASH);
     } else {
@@ -56,7 +51,7 @@ class RegisterController extends GetxController {
     loading.value = false;
   }
 
-  Future<IdModel?> signUp() async {
+  Future<UserModel?> signUp() async {
     var url = Uri.parse(ApiConst.signup);
     Map data = {
       "name": nameController.value.text.trim(),
@@ -68,16 +63,11 @@ class RegisterController extends GetxController {
         headers: {"Content-Type": "application/json"}, body: body);
     if (response.statusCode == 200 | 201) {
       var resdata = json.decode(response.body);
-      var res = IdModel.fromJson(resdata['data']['data']);
+      var res = UserModel.fromJson(resdata['data']['data']);
       return res;
     } else {
       return null;
     }
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -90,7 +80,6 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
-    print("close");
     super.onClose();
   }
 }

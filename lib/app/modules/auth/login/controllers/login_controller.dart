@@ -15,8 +15,6 @@ class LoginController extends GetxController {
   RxBool password = false.obs;
   @override
   void onInit() {
-    print("init");
-
     super.onInit();
   }
 
@@ -66,7 +64,6 @@ class LoginController extends GetxController {
     if (response.statusCode == 200) {
       var resdata = json.decode(response.body);
       var res = UserModel.fromJson(resdata['data']['data']);
-
       return res;
     } else {
       return null;
