@@ -71,8 +71,7 @@ class HomeController extends GetxController {
   Future<List<ChatRoomModel>> loadChat() async {
     allChats.value = [];
     var url = Uri.parse('${ApiConst.allchat}${box.boxread()}');
-
-    print(url);
+     print(url);
     http.Response response = await http.get(url);
     List<ChatRoomModel> allChatRooms = [];
     if (response.statusCode == 200) {
