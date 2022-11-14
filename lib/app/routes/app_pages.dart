@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/all_users/bindings/all_users_binding.dart';
@@ -48,7 +50,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CHAT,
-      page: () =>  ChatView(),
+      page: () =>  const ChatView(),
       binding: ChatBinding(),
     ),
   ];

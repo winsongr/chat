@@ -15,11 +15,6 @@ class HomeController extends GetxController {
   RxList<ChatRoomModel> allChats = RxList<ChatRoomModel>();
   RxList<UserModel> allUsers = RxList<UserModel>();
 
-  @override
-  void onInit() async {
-    print("home init");
-    super.onInit();
-  }
 
   allUserChats() async {
     allChats.value = [];
@@ -63,7 +58,6 @@ class HomeController extends GetxController {
       userModel = UserModel.fromJson(data['data']['data']);
       return userModel.name;
     } else {
-      print(response.statusCode);
       return null;
     }
   }
@@ -71,7 +65,6 @@ class HomeController extends GetxController {
   Future<List<ChatRoomModel>> loadChat() async {
     allChats.value = [];
     var url = Uri.parse('${ApiConst.allchat}${box.boxread()}');
-     print(url);
     http.Response response = await http.get(url);
     List<ChatRoomModel> allChatRooms = [];
     if (response.statusCode == 200) {

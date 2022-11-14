@@ -1,6 +1,4 @@
-import 'package:chat/app/data/models/user_model.dart';
 import 'package:chat/app/routes/app_pages.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +12,7 @@ class HomeView extends GetView<HomeController> {
     controller.allUserChats();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
+        title: const Text('Home'),
         actions: [
           IconButton(
               onPressed: () async {
@@ -37,23 +35,22 @@ class HomeView extends GetView<HomeController> {
                     itemBuilder: ((context, index) {
                       var chat = controller.allChats[index];
 
-                      var otherUser;
-                      if (chat.users!.first != controller.box.boxread()) {
-                        otherUser = chat.users!.first;
-                      } else {
-                        otherUser = chat.users!.last;
-                      }
-
-                      return ListTile(
-                        title: Text(otherUser??''),
-                        // subtitle: Text(),
-                        onTap: () {
-                          Get.toNamed(Routes.CHAT, arguments: {
-                            'secondUserId': otherUser,
-                            "userId": controller.box.boxread(),
-                            "chatId": "${chat.chatid}"
-                          });
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(chat.chatName?.toUpperCase()??''),
+                            // subtitle: Text(),
+                            onTap: () {
+                              Get.toNamed(Routes.CHAT, arguments: {
+                                'otherUserName':chat.chatName,
+                                'secondUserId': chat.userId,
+                                "userId": controller.box.boxread(),
+                                "chatId": "${chat.chatId}"
+                              });
+                            },
+                          ),
+                        ),
                       );
                     }),
                   ),

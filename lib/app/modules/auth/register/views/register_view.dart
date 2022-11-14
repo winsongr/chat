@@ -14,7 +14,7 @@ class RegisterView extends GetView<RegisterController> {
         backgroundColor: Colors.white,
         body: SafeArea(
             child: SingleChildScrollView(
-          physics: ScrollPhysics(),
+          physics: const ScrollPhysics(),
           child: SizedBox(
             height: Get.height,
             width: Get.width,
@@ -138,6 +138,7 @@ class RegisterView extends GetView<RegisterController> {
                                         controller.password.value = false;
                                       }
                                     },
+                                    obscureText: true,
                                     controller:
                                         controller.passwordController.value,
                                     decoration: InputDecoration(
@@ -153,8 +154,8 @@ class RegisterView extends GetView<RegisterController> {
                           SizedBox(
                               height: 30,
                               child: controller.loading.value
-                                  ? CircularProgressIndicator()
-                                  : SizedBox()),
+                                  ? const CircularProgressIndicator()
+                                  : const SizedBox()),
                           InkWell(
                             onTap: controller.loading.value == false
                                 ? () async {
@@ -174,8 +175,8 @@ class RegisterView extends GetView<RegisterController> {
                                     colors: controller.email.value &&
                                             controller.password.value
                                         ? [
-                                            Color.fromRGBO(143, 148, 251, 1),
-                                            Color.fromRGBO(143, 148, 251, .6),
+                                            const Color.fromRGBO(143, 148, 251, 1),
+                                            const Color.fromRGBO(143, 148, 251, .6),
                                           ]
                                         : [Colors.grey, Colors.black38]),
                               ),
@@ -189,11 +190,11 @@ class RegisterView extends GetView<RegisterController> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           InkWell(
-                            child: Text("Tap to Login"),
+                            child: const Text("Tap to Login"),
                             onTap: () {
                               Get.offAndToNamed(Routes.LOGIN);
                             },

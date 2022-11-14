@@ -1,5 +1,4 @@
 import 'package:chat/app/modules/chat/views/widgets/chat_bubble_widget.dart';
-import 'package:chat/app/modules/home/controllers/home_controller.dart';
 import 'package:chat/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -9,7 +8,7 @@ import 'package:get/get.dart';
 import '../controllers/chat_controller.dart';
 
 class ChatView extends GetView<ChatController> {
-  ChatView({Key? key}) : super(key: key);
+  const ChatView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class ChatView extends GetView<ChatController> {
                     TextSpan(
                       text: controller.userLoading.value
                           ? ''
-                          : controller.userModel?.name?.toUpperCase() ?? 'User',
+                          : controller.otherUserName.value.toUpperCase(),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

@@ -22,7 +22,6 @@ class RegisterController extends GetxController {
     if (signup != null) {
       Box box = Box();
       box.boxWrite(signup.id);
-      print(box.boxread());
       Get.offAndToNamed(Routes.SPLASH);
     } else {
       Get.dialog(Center(
@@ -78,8 +77,4 @@ class RegisterController extends GetxController {
     super.dispose();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

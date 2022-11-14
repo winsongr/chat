@@ -13,10 +13,6 @@ class LoginController extends GetxController {
   RxBool isValid = false.obs;
   RxBool email = false.obs;
   RxBool password = false.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   login() async {
     var sign = await signin();

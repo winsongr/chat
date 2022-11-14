@@ -26,7 +26,6 @@ class AllUsersView extends GetView<AllUsersController> {
                       itemCount: controller.allUsers.length,
                       itemBuilder: (BuildContext context, int index) {
                         var user = controller.allUsers[index];
-                        print(user.id);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(

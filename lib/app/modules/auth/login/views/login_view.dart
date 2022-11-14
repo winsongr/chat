@@ -103,6 +103,7 @@ class LoginView extends GetView<LoginController> {
                                 Container(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
+                                    obscureText: true,
                                     onChanged: (v) {
                                       if (v.isNotEmpty) {
                                         controller.password.value = true;

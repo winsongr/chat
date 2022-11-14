@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes
+
 import 'dart:convert';
 
 import 'package:chat/app/data/api.dart';
@@ -15,6 +17,7 @@ class ChatController extends GetxController {
   RxList<MessagesModel> messages = RxList<MessagesModel>();
   RxString currentUser = ''.obs;
   RxString otherUser = ''.obs;
+  RxString otherUserName = 'User'.obs;
   RxString chatId = ''.obs;
   UserModel? userModel;
   RxBool userLoading = false.obs;
@@ -25,31 +28,15 @@ class ChatController extends GetxController {
 
     await setValues();
     await initSocket();
-    print(arg);
     _loadMessages();
-    getUserById(otherUser.value);
     super.onInit();
-  }
-
-  Future<UserModel?> getUserById(uid) async {
-    userLoading.value = true;
-    var url = Uri.parse('${ApiConst.getuserid}$uid');
-    http.Response response = await http.get(url);
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body);
-      userModel = UserModel.fromJson(data['data']['data']);
-      userLoading.value = false;
-
-      return userModel;
-    } else {
-      return null;
-    }
   }
 
   setValues() {
     currentUser.value = arg["userId"];
     chatId.value = arg["chatId"];
     otherUser.value = arg['secondUserId'];
+    otherUserName.value = arg['otherUserName'];
   }
 
   @override
@@ -79,7 +66,6 @@ class ChatController extends GetxController {
     messages.value = [];
     var url = Uri.parse('${ApiConst.allmsgs}${chatId.value}');
     http.Response response = await http.get(url);
-    print(url);
     List<MessagesModel> allMsg = [];
     if (response.statusCode == 200) {
       var data = json.decode(response.body);

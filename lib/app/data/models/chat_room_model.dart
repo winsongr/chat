@@ -10,76 +10,60 @@ String chatRoomModelToJson(ChatRoomModel data) => json.encode(data.toJson());
 
 class ChatRoomModel {
     ChatRoomModel({
-        this.id,
-        this.chatid,
-        this.chatname,
-        this.isgroup,
-        this.latestmessage,
-        this.latestmessageid,
-        this.userid,
+        this.chatId,
         this.users,
-        this.usersInfo,
+        this.isGroup,
+        this.latestMessage,
+        this.latestMessageId,
+        this.userId,
+        this.chatName,
     });
 
-    String? id;
-    String? chatid;
-    String? chatname;
-    bool? isgroup;
-    String? latestmessage;
-    String? latestmessageid;
-    String? userid;
-    List<String>? users;
-    List<UsersInfo>? usersInfo;
+    String? chatId;
+    List<User>? users;
+    bool? isGroup;
+    String? latestMessage;
+    String? latestMessageId;
+    String? userId;
+    String? chatName;
 
     factory ChatRoomModel.fromJson(Map<String, dynamic> json) => ChatRoomModel(
-        id: json["_id"],
-        chatid: json["chatid"],
-        chatname: json["chatname"],
-        isgroup: json["isgroup"],
-        latestmessage: json["latestmessage"],
-        latestmessageid: json["latestmessageid"],
-        userid: json["userid"],
-        users: List<String>.from(json["users"].map((x) => x)),
-        usersInfo: List<UsersInfo>.from(json["users_info"].map((x) => UsersInfo.fromJson(x))),
+        chatId: json["chatId"],
+        users: List<User>.from(json["users"].map((x) => User.fromJson(x))),
+        isGroup: json["isGroup"],
+        latestMessage: json["latestMessage"],
+        latestMessageId: json["latestMessageId"],
+        userId: json["userId"],
+        chatName: json["chatName"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id,
-        "chatid": chatid,
-        "chatname": chatname,
-        "isgroup": isgroup,
-        "latestmessage": latestmessage,
-        "latestmessageid": latestmessageid,
-        "userid": userid,
-        "users": List<dynamic>.from(users!.map((x) => x)),
-        "users_info": List<dynamic>.from(usersInfo!.map((x) => x.toJson())),
+        "chatId": chatId,
+        "users": List<dynamic>.from(users!.map((x) => x.toJson())),
+        "isGroup": isGroup,
+        "latestMessage": latestMessage,
+        "latestMessageId": latestMessageId,
+        "userId": userId,
+        "chatName": chatName,
     };
 }
 
-class UsersInfo {
-    UsersInfo({
+class User {
+    User({
         this.id,
-        this.email,
-        this.usersInfoId,
         this.name,
     });
 
     String? id;
-    String? email;
-    String? usersInfoId;
     String? name;
 
-    factory UsersInfo.fromJson(Map<String, dynamic> json) => UsersInfo(
-        id: json["_id"],
-        email: json["email"],
-        usersInfoId: json["id"],
+    factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
         name: json["name"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id,
-        "email": email,
-        "id": usersInfoId,
+        "id": id,
         "name": name,
     };
 }
